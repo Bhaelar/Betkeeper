@@ -2,12 +2,12 @@
 
 var mysql = require('mysql');
 
-var dotenv = require('dotenv');
+var config = require('config');
 
 var db = mysql.createPool({
   host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'betkeeper'
+  user: config.get('SQL_USERNAME'),
+  password: config.get('SQL_PASSWORD'),
+  database: config.get('SQL_DATABASE')
 });
 module.exports = db;

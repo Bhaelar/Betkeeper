@@ -1,11 +1,11 @@
 const mysql = require('mysql');
-const dotenv = require('dotenv');
+const config = require('config');
 
 const db = mysql.createPool({
 	host: 'localhost',
-	user: 'root',
-	password: '',
-	database: 'betkeeper'
+	user: config.get('SQL_USERNAME'),
+	password: config.get('SQL_PASSWORD'),
+	database: config.get('SQL_DATABASE')
 });
 
 module.exports = db;
