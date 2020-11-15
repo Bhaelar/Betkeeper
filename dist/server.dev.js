@@ -13,6 +13,8 @@ var users = require('./routes/api/users');
 
 var auth = require('./routes/api/auth');
 
+var bets = require('./routes/api/bets');
+
 dotenv.config({
   path: './config/config.env'
 });
@@ -24,6 +26,7 @@ app.use(express.json()); // Define Routes
 
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+app.use('/api/bets', bets);
 var PORT = process.env.PORT || 5000;
 app.listen(PORT, function () {
   return console.log("Server started on port ".concat(PORT));
