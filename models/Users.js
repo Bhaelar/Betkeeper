@@ -29,7 +29,7 @@ User.findById = (userId, result) => {
     }
 
     if (res.length) {
-      console.log("found User: ", res[0]);
+      // console.log("found User: ", res[0]);
       result(null, res[0]);
       return;
     }
@@ -48,7 +48,7 @@ User.findByEmail = (userEmail, result) => {
     }
 
     if (res.length) {
-      console.log("found User: ", res[0]);
+      // console.log("found User: ", res[0]);
       result(null, res[0]);
       return;
     }
@@ -67,7 +67,7 @@ User.findByUsername = (username, result) => {
     }
 
     if (res.length) {
-      console.log("found User: ", res[0]);
+      // console.log("found User: ", res[0]);
       result(null, res[0]);
       return;
     }

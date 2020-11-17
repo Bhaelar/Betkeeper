@@ -53,17 +53,6 @@ router.post('/', async (req, res) => {
 					return res.status(400).json({ errors: [ { msg: 'Invalid Credentials' } ] });
 				}
 
-				const payload = {
-					user: {
-						id: data.id
-					}
-				};
-
-				// jwt.sign(payload, config.get('jwtSecret'), { expiresIn: '5 days' }, (err, token) => {
-				// 	if (err) throw err;
-				// 	res.json({ token });
-                // });
-                
                 var token = jwt.sign({ id: data.id }, config.get('jwtSecret'), {
                     expiresIn: 86400 // 24 hours
                 });

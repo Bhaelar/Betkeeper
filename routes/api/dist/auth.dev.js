@@ -72,7 +72,7 @@ router.post('/', function _callee4(req, res) {
           _req$body = req.body, email = _req$body.email, password = _req$body.password;
           _context4.prev = 1;
           User.findByEmail(email, function _callee3(err, data) {
-            var isMatch, payload, token;
+            var isMatch, token;
             return regeneratorRuntime.async(function _callee3$(_context3) {
               while (1) {
                 switch (_context3.prev = _context3.next) {
@@ -99,7 +99,7 @@ router.post('/', function _callee4(req, res) {
                     });
 
                   case 6:
-                    _context3.next = 16;
+                    _context3.next = 15;
                     break;
 
                   case 8:
@@ -121,15 +121,6 @@ router.post('/', function _callee4(req, res) {
                     }));
 
                   case 13:
-                    payload = {
-                      user: {
-                        id: data.id
-                      }
-                    }; // jwt.sign(payload, config.get('jwtSecret'), { expiresIn: '5 days' }, (err, token) => {
-                    // 	if (err) throw err;
-                    // 	res.json({ token });
-                    // });
-
                     token = jwt.sign({
                       id: data.id
                     }, config.get('jwtSecret'), {
@@ -140,7 +131,7 @@ router.post('/', function _callee4(req, res) {
                       token: token
                     });
 
-                  case 16:
+                  case 15:
                   case "end":
                     return _context3.stop();
                 }
