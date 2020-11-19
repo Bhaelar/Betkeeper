@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Routes from './components/routing/Routes';
 import Alert from './components/Alert';
@@ -10,6 +9,10 @@ import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
+import "./assets/plugins/nucleo/css/nucleo.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./assets/scss/argon-dashboard-react.scss";
+
 function App () {
 	useEffect(() => {
 		setAuthToken(localStorage.token);
@@ -19,9 +22,8 @@ function App () {
 	return (
 		<Provider store={store}>
 			<Router>
-				<div className="App">
-					<Route component={Routes} />
-				</div>
+				<Route component={Routes} />
+				
 			</Router>
 		</Provider>
 	);
