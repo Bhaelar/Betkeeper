@@ -185,16 +185,16 @@ export const Home = ({ getBets, bet: { bets, loading } }) => {
 									<tbody>
 										{bets.slice(0, 5).map((b) => (
 											<tr>
-												<th scope="row">{b.sport}</th>
-												<td>{b.country}</td>
-												<td>{b.competition}</td>
-												<td>{b.fixture}</td>
-												<td>
+												<th scope="row" className="text-capitalize">{b.sport}</th>
+												<td className="text-capitalize">{b.country}</td>
+												<td className="text-capitalize">{b.competition}</td>
+												<td className="text-capitalize">{b.fixture}</td>
+												<td className="text-capitalize">
 													{b.market} - {b.bet}
 												</td>
 												<td>{b.stake}</td>
 												<td>{b.odds}</td>
-												<td>
+												<td className="text-capitalize">
 													{b.status === 'pending' || 'refund' ? (
 														b.status
 													) : b.status === 'win' || 'half-win' ? (
@@ -239,7 +239,7 @@ export const Home = ({ getBets, bet: { bets, loading } }) => {
 									<tbody>
 										{unique(bets).map((b) => (
 											<tr>
-												<th scope="row">{b}</th>
+												<th scope="row" className="text-capitalize">{b}</th>
 												<td>
 													{
 														bets.filter(

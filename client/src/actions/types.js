@@ -21,6 +21,6 @@ export const BET_ERROR = 'BET_ERROR';
 export const UPDATE_LIKES = 'UPDATE_LIKES';
 export const UPDATE_COMMENT_LIKES = 'UPDATE_COMMENT_LIKES';
 export const DELETE_POST = 'DELETE_POST';
-export const ADD_POST = 'ADD_POST';
+export const ADD_BET = 'ADD_BET';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
