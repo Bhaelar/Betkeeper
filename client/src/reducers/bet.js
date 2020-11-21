@@ -1,6 +1,8 @@
 import {
 	GET_BETS,
 	ADD_BET,
+	GET_BET,
+	UPDATE_STATUS,
 	BET_ERROR
 } from '../actions/types';
 
@@ -21,18 +23,26 @@ export default function (state = initialState, action) {
 				bets: payload,
 				loading: false
 			};
-		// case GET_POST:
-		// 	return {
-		// 		...state,
-		// 		post: payload,
-		// 		loading: false
-		// 	};
+		case GET_BET:
+			return {
+				...state,
+				bet: payload,
+				loading: false
+			};
 		case ADD_BET:
 		return {
 				...state,
 				bets: [ payload, ...state.bets ],
 				loading: false
 			};
+		case UPDATE_STATUS:
+			return {
+				...state,
+		        bets: state.bets.map(bet =>
+		          bet.id === payload.id ? { ...bet, status: payload.status, profit: payload.profit } : bet
+		        ),
+		        loading: false
+			}
 		// case DELETE_POST:
 		// 	return {
 		// 		...state,
@@ -45,12 +55,6 @@ export default function (state = initialState, action) {
 				error: payload,
 				loading: false
 			};
-		// case UPDATE_LIKES:
-		// 	return {
-		// 		...state,
-		// 		posts: state.posts.map((post) => (post._id === payload.id ? { ...post, likes: payload.likes } : post)),
-		// 		loading: false
-		// 	};
 		// case ADD_COMMENT:
 		// 	return {
 		// 		...state,

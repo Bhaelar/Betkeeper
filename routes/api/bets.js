@@ -106,7 +106,7 @@ router.get('/:id', auth, async (req, res) => {
 // @access private
 router.put('/:id', auth, async (req, res) => {
 	try {
-		const { sport, country, competition, fixture, market, bet, stake, odds, locked, profit, status } = req.body;
+		const { sport, country, competition, fixture, market, bet, stake, odds, locked, status } = req.body;
 
 		const newBet = new Bet({
 			sport,
@@ -118,7 +118,7 @@ router.put('/:id', auth, async (req, res) => {
 			stake,
 			odds,
 			locked,
-			profit,
+			profit: status === 'win' ? (stake*odds)-stake : status === 'half-win' ? (stake*Math.sqrt(odds))-stake : status === 'half-loss' ? -(stake/2) : status === 'loss' ? -stake : 0,
 			status,
 			userId: req.userId
 		});

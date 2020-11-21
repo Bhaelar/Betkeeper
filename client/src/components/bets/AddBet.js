@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
+import AlertMsg from '../Alert';
 import { connect } from 'react-redux';
 import Sidebar from '../Sidebar';
 import routes from '../routes';
@@ -54,10 +55,11 @@ const AddBet = ({addBet, history}) => {
 						imgAlt: '...'
 					}}
 				/>
-				<Container className="main-content" ref={inputRef}>
+				<div className="main-content" ref={inputRef}>
 	        <Container className="my-4" fluid>
+	        	<AlertMsg />
 	          <Row>
-	            <Col className="order-xl-1" lg="10">
+	            <div className="col">
 	              <Card className="bg-secondary shadow">
 	                <CardHeader className="bg-white border-0">
 	                  <Row className="align-items-center">
@@ -272,10 +274,10 @@ const AddBet = ({addBet, history}) => {
 	                  </Form>
 	                </CardBody>
 	              </Card>
-	            </Col>
+	            </div>
 	          </Row>
 	        </Container>
-	        </Container>
+	        </div>
       </Container>
 	)
 }

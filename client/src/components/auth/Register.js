@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import AlertMsg from '../Alert';
 import { connect } from 'react-redux';
 import { register } from '../../actions/auth';
 import { setAlert } from '../../actions/alert';
@@ -25,6 +26,7 @@ const Register = ({ register, history }) => {
 	};
 	return (
 		<div className="container-fluid">
+			<AlertMsg />
 			<div className="row no-gutter">
 				<div className="col-md-12 col-lg-6 mx-auto">
 					<div className="login d-flex align-items-center py-5">
