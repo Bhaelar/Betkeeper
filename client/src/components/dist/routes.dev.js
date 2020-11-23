@@ -11,6 +11,10 @@ var _Register = _interopRequireDefault(require("./auth/Register.js"));
 
 var _Login = _interopRequireDefault(require("./auth/Login.js"));
 
+var _AddBet = _interopRequireDefault(require("./bets/AddBet"));
+
+var _BetList = _interopRequireDefault(require("./bets/BetList"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /*!
@@ -31,23 +35,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 */
 var routes = [{
-  path: "/",
-  name: "Dashboard",
-  icon: "ni ni-tv-2 text-primary",
+  path: '/',
+  name: 'Dashboard',
+  icon: 'ni ni-tv-2 text-primary',
   component: _Home["default"],
-  layout: "/"
+  layout: '/'
 }, {
-  path: "/login",
-  name: "Login",
-  icon: "ni ni-key-25 text-info",
-  component: _Login["default"],
-  layout: "/"
+  path: '/add',
+  name: 'Add Bet',
+  icon: 'ni ni-fat-add text-green',
+  component: _AddBet["default"],
+  layout: '/'
 }, {
-  path: "/register",
-  name: "Register",
-  icon: "ni ni-circle-08 text-pink",
-  component: _Register["default"],
-  layout: "/"
+  path: '/history',
+  name: 'Bet History',
+  icon: 'ni ni-list-67 text-primary',
+  component: _BetList["default"],
+  layout: '/'
 }];
 var _default = routes;
 exports["default"] = _default;

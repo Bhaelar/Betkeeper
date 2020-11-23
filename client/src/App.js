@@ -9,9 +9,9 @@ import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
-import "./assets/plugins/nucleo/css/nucleo.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "./assets/scss/argon-dashboard-react.scss";
+import './assets/plugins/nucleo/css/nucleo.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import './assets/scss/argon-dashboard-react.scss';
 
 function App () {
 	useEffect(() => {
@@ -23,7 +23,6 @@ function App () {
 		<Provider store={store}>
 			<Router>
 				<Route component={Routes} />
-				
 			</Router>
 		</Provider>
 	);

@@ -15,31 +15,33 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Home from "./Home.js";
-import Register from "./auth/Register.js";
-import Login from "./auth/Login.js";
+import Home from './Home.js';
+import Register from './auth/Register.js';
+import Login from './auth/Login.js';
+import AddBet from './bets/AddBet';
+import BetList from './bets/BetList';
 
 var routes = [
-  {
-    path: "/",
-    name: "Dashboard",
-    icon: "ni ni-tv-2 text-primary",
-    component: Home,
-    layout: "/"
-  },
-  {
-    path: "/login",
-    name: "Login",
-    icon: "ni ni-key-25 text-info",
-    component: Login,
-    layout: "/"
-  },
-  {
-    path: "/register",
-    name: "Register",
-    icon: "ni ni-circle-08 text-pink",
-    component: Register,
-    layout: "/"
-  }
+	{
+		path: '/',
+		name: 'Dashboard',
+		icon: 'ni ni-tv-2 text-primary',
+		component: Home,
+		layout: '/'
+	},
+	{
+		path: '/add',
+		name: 'Add Bet',
+		icon: 'ni ni-fat-add text-green',
+		component: AddBet,
+		layout: '/add'
+	},
+	{
+		path: '/history',
+		name: 'Bet History',
+		icon: 'ni ni-list-67 text-primary',
+		component: BetList,
+		layout: '/history'
+	}
 ];
 export default routes;
