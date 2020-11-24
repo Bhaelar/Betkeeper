@@ -34,6 +34,22 @@ const Header = ({ bets, date, sport, country, competition, market, status, onDat
 
 	let profit = calcProfit();
 
+	const unique = (arr) => {
+		let lookup = {};
+		var items = arr;
+		var result = [];
+
+		for (var item, i = 0; (item = items[i++]); ) {
+			var name = item.competition.toLowerCase();
+
+			if (!(name in lookup)) {
+				lookup[name] = 1;
+				result.push(name);
+			}
+		}
+		return result;
+	};
+
 	return (
 		<Fragment>
 			<div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -101,7 +117,7 @@ const Header = ({ bets, date, sport, country, competition, market, status, onDat
 												<CardTitle tag="h5" className="text-uppercase text-muted mb-0">
 													Competitions
 												</CardTitle>
-												<span className="h2 font-weight-bold mb-0">{bets.length}</span>
+												<span className="h2 font-weight-bold mb-0">{unique(bets).length}</span>
 											</div>
 											<Col className="col-auto">
 												<div className="icon icon-shape bg-yellow text-white rounded-circle shadow">

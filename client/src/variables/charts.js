@@ -408,6 +408,7 @@ let chartExample2 = {
 
 module.exports = {
   chartOptions, // used inside src/views/Index.js
+  colors, // used inside src/views/Index.js
   parseOptions, // used inside src/views/Index.js
   chartExample1, // used inside src/views/Index.js
   chartExample2 // used inside src/views/Index.js

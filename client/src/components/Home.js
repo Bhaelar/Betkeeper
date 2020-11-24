@@ -26,8 +26,8 @@ import PropTypes from 'prop-types';
 import { getBets } from '../actions/bet';
 
 // core components
-import { chartOptions, parseOptions, chartExample1, chartExample2 } from '../variables/charts.js';
-import Header from './Headers/Header.js';
+import { colors, chartOptions, parseOptions, chartExample2 } from '../variables/charts.js';
+import Header1 from './Headers/Header1.js';
 import Sidebar from './Sidebar.js';
 import routes from './routes.js';
 
@@ -55,6 +55,82 @@ export const Home = ({ getBets, bet: { bets, loading } }) => {
 	};
 	const [ activeNav, setActiveNav ] = useState(1);
 	const [ chartExample1Data, setChartExample1Data ] = useState('data1');
+	const calc = () => {
+		let profits = [];
+		let sum = 0;
+		for(let i = bets.length - 1 ; i >= 0  ; i--) {
+			sum += bets[i].profit;
+			profits.push(sum);
+		}
+		return profits;
+	}
+	const lab = () => {
+		let labels = [];
+		if(bets.length <= 10) {
+			for(let i = 1 ; i <= bets.length ; i++) {
+				labels.push(i);
+			}
+		} else {
+			let check = Math.round((bets.length/10) * 100)/100;
+			let sum = 0;
+			for(let i = 1 ; i <= 10 ; i++) {
+				sum += check;
+				sum = Math.round(sum * 100)/100;
+				labels.push(sum);
+			}
+		}
+		return labels;
+	}
+
+  	let chartExample1 = {
+  options: {
+    scales: {
+      yAxes: [
+        {
+          gridLines: {
+            color: colors.gray[900],
+            zeroLineColor: colors.gray[900]
+          },
+          ticks: {
+            callback: function(value) {
+              if (!(value % 10)) {
+                return value;
+              }
+            }
+          }
+        }
+      ]
+    },
+    tooltips: {
+      callbacks: {
+        label: function(item, data) {
+          var label = data.datasets[item.datasetIndex].label || "";
+          var yLabel = item.yLabel;
+          var content = "";
+
+          if (data.datasets.length > 1) {
+            content += label;
+          }
+
+          content += yLabel;
+          return content;
+        }
+      }
+    }
+  },
+  data1: canvas => {
+    return {
+    	labels: lab(),
+      datasets: [
+        {
+          label: "Performance",
+          data: calc()
+        }
+      ]
+    };
+  }
+};
+
 	const inputRef = useRef('mainContent');
 	if (window.Chart) {
 		parseOptions(Chart, chartOptions());
@@ -76,7 +152,7 @@ export const Home = ({ getBets, bet: { bets, loading } }) => {
 				}}
 			/>
 			<div className="main-content" ref={inputRef}>
-				<Header bets={bets} />
+				<Header1 bets={bets} />
 				<Container className="mt--7" fluid>
 					<Row>
 						<Col className="mb-5 mb-xl-0" xl="8">
@@ -86,35 +162,6 @@ export const Home = ({ getBets, bet: { bets, loading } }) => {
 										<div className="col">
 											<h6 className="text-uppercase text-light ls-1 mb-1">Overview</h6>
 											<h2 className="text-white mb-0">Bet Profits</h2>
-										</div>
-										<div className="col">
-											<Nav className="justify-content-end" pills>
-												<NavItem>
-													<NavLink
-														className={classnames('py-2 px-3', {
-															active: activeNav === 1
-														})}
-														href="#pablo"
-														onClick={(e) => toggleNavs(e, 1)}
-													>
-														<span className="d-none d-md-block">Month</span>
-														<span className="d-md-none">M</span>
-													</NavLink>
-												</NavItem>
-												<NavItem>
-													<NavLink
-														className={classnames('py-2 px-3', {
-															active: activeNav === 2
-														})}
-														data-toggle="tab"
-														href="#pablo"
-														onClick={(e) => toggleNavs(e, 2)}
-													>
-														<span className="d-none d-md-block">Week</span>
-														<span className="d-md-none">W</span>
-													</NavLink>
-												</NavItem>
-											</Nav>
 										</div>
 									</Row>
 								</CardHeader>
