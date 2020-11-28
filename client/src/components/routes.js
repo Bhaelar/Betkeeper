@@ -32,14 +32,14 @@ var routes = [
 	{
 		path: '/add',
 		name: 'Add Bet',
-		icon: 'ni ni-fat-add text-green',
+		icon: 'fas fa-plus text-green',
 		component: AddBet,
 		layout: '/add'
 	},
 	{
 		path: '/history',
 		name: 'Bet History',
-		icon: 'ni ni-list-67 text-primary',
+		icon: 'fas fa-chart-line text-primary',
 		component: BetList,
 		layout: '/history'
 	}

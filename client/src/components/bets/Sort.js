@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React from 'react'
 
-import { Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Container } from 'reactstrap';
 
 const Sort = ({ bets, date, sport, country, competition, market, status, onDateChange, onSportChange, onCountryChange, onCompetitionChange, onMarketChange, onStatusChange }) => {
     const spunique = (arr) => {

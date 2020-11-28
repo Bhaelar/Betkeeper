@@ -1,40 +1,30 @@
 import React, { useRef, useState, useEffect } from 'react';
+import Moment from 'react-moment';
 import Sidebar from '../Sidebar';
 import routes from '../routes';
 import AlertMsg from '../Alert';
 import { v4 as uuidv4 } from 'uuid';
-import Sort from './Sort';
 import Header from '../Headers/Header';
 import Spinner from '../Spinner';
+import {Link} from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getBet, getBets, updateBet } from '../../actions/bet';
+import {  getBets, updateBet, deleteBet } from '../../actions/bet';
 
 // reactstrap components
 import {
-    Badge,
+    Button,
     Card,
     CardHeader,
     CardFooter,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    Media,
-    Pagination,
-    PaginationItem,
-    PaginationLink,
-    Progress,
-    Table,
-    Container,
+    Table,    Container,
     Row,
-    UncontrolledTooltip,
     Form,
-    Input
+    Input, Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
 
-const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
+const BetList = ({ getBets, updateBet, deleteBet, bet: { bets, loading } }) => {
 	useEffect(
         () => {
             getBets();
@@ -42,6 +32,9 @@ const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
         [getBets]
     );
 
+    const [modal, setModal] = useState(false);
+
+  	const toggle = () => setModal(!modal);
 
     const [date, setDate] = useState(0);
     const [sport, setSport] = useState('');
@@ -119,6 +112,7 @@ const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
 
     const filterBets = bets.filter((b) => filterDate(b)).filter((b) => filterOthers(b.sport, sport)).filter((b) => filterOthers(b.country, country)).filter((b) => filterOthers(b.competition, competition)).filter((b) => filterOthers(b.market, market)).filter((b) => filterOthers(b.status, status));
     const inputRef = useRef('mainContent');
+
     return loading === true ? (
 		<Spinner />
 	) : (
@@ -132,10 +126,10 @@ const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
 				}}
 			/>
 			<div className="main-content" ref={inputRef}>
+				<AlertMsg />
 				<Header bets={filterBets} date={date} sport={sport} country={country} competition={competition} market={market} status={status} onDateChange={onDateChange} onSportChange={onSportChange} onCountryChange={onCountryChange} onCompetitionChange={onCompetitionChange} onMarketChange={onMarketChange} onStatusChange={onStatusChange} />
 				<Container className="mt--7" fluid>
 					{/* Table */}
-					<AlertMsg />
 					<Row>
 						<div className="col">
 							<Card className="shadow">
@@ -145,6 +139,7 @@ const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
 								<Table className="align-items-center table-flush" responsive>
 									<thead className="thead-light">
 										<tr>
+											<th scope="col">Date</th>
 											<th scope="col">Sport</th>
 											<th scope="col">Country</th>
 											<th scope="col">Competition</th>
@@ -161,12 +156,28 @@ const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
 										{
 											filterBets.map((b) => (
 											<tr key={uuidv4()}>
-												<th scope="row" className="text-capitalize">
+												<th scope="row"><Moment fromNow>{b.date}</Moment></th>
+												<td className="text-capitalize">
 													{b.sport}
-												</th>
+												</td>
 												<td className="text-capitalize">{b.country}</td>
 												<td className="text-capitalize">{b.competition}</td>
-												<td className="text-capitalize">{b.fixture}</td>
+												<td className="text-capitalize"><Link to={{
+													pathname: `/view`,
+													state: {
+														sport: b.sport,
+														country: b.country,
+														competition: b.competition,
+														fixture: b.fixture,
+														market: b.market,
+														bet: b.bet,
+														stake: b.stake,
+														odds: b.odds,
+														locked: b.locked,
+														status: b.status,
+														id: b.id
+													}
+												}}>{b.fixture}</Link></td>
 												<td className="text-capitalize">
 													{b.market} - {b.bet}
 												</td>
@@ -180,9 +191,7 @@ const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
 															bsSize="sm"
 															className="form-control-alternative"
 															onChange={(e) => {
-																e.preventDefault();
-																getBet(b.id);
-																updateBet(
+																e.preventDefault();																updateBet(
 																	{
 																		sport: b.sport,
 																		country: b.country,
@@ -195,10 +204,9 @@ const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
 																		status: e.target.value,
 																		profit:
 																			e.target.value === 'win'
-																				? b.stake * b.odds - b.stake
+																				? +(b.stake * b.odds - b.stake).toFixed(2)
 																				: e.target.value === 'half-win'
-																					? b.stake * Math.sqrt(b.odds) -
-																						b.stake
+																					? +( b.stake * Math.sqrt(b.odds) - b.stake).toFixed(2) 
 																					: e.target.value === 'half-loss'
 																						? -(b.stake / 2)
 																						: e.target.value === 'loss'
@@ -221,10 +229,26 @@ const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
 												</td>
 												<td>
 													{b.profit > 0 ? (
-														<span className="text-success">{b.profit}</span>
+														<span className="text-success">{(Math.round(b.profit * 100) / 100)}</span>
 													) : (
-														<span className="text-warning">{b.profit}</span>
+														<span className="text-warning">{(Math.round(b.profit * 100) / 100)}</span>
 													)}
+												</td>
+												<td>
+												
+													<Button color="danger" size="sm" onClick={toggle} disabled={b.locked}>
+														<i className="fas fa-trash" />
+													</Button>
+													<Modal isOpen={modal} toggle={toggle}>
+												        <ModalHeader toggle={toggle}>Warning</ModalHeader>
+												        <ModalBody>
+												          Are you sure you want to delete this bet?
+												        </ModalBody>
+												        <ModalFooter>
+												          <Button color="danger" onClick={() => {deleteBet(b.id); toggle();}}>Delete</Button>{' '}
+												          <Button color="secondary" onClick={toggle}>Cancel</Button>
+												        </ModalFooter>
+												    </Modal>
 												</td>
 											</tr>
 										))
@@ -232,44 +256,7 @@ const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
 									</tbody>
 								</Table>
 								<CardFooter className="py-4">
-									<nav aria-label="...">
-										<Pagination
-											className="pagination justify-content-end mb-0"
-											listClassName="justify-content-end mb-0"
-										>
-											<PaginationItem className="disabled">
-												<PaginationLink
-													href="#pablo"
-													onClick={(e) => e.preventDefault()}
-													tabIndex="-1"
-												>
-													<i className="fas fa-angle-left" />
-													<span className="sr-only">Previous</span>
-												</PaginationLink>
-											</PaginationItem>
-											<PaginationItem className="active">
-												<PaginationLink href="#pablo" onClick={(e) => e.preventDefault()}>
-													1
-												</PaginationLink>
-											</PaginationItem>
-											<PaginationItem>
-												<PaginationLink href="#pablo" onClick={(e) => e.preventDefault()}>
-													2 <span className="sr-only">(current)</span>
-												</PaginationLink>
-											</PaginationItem>
-											<PaginationItem>
-												<PaginationLink href="#pablo" onClick={(e) => e.preventDefault()}>
-													3
-												</PaginationLink>
-											</PaginationItem>
-											<PaginationItem>
-												<PaginationLink href="#pablo" onClick={(e) => e.preventDefault()}>
-													<i className="fas fa-angle-right" />
-													<span className="sr-only">Next</span>
-												</PaginationLink>
-											</PaginationItem>
-										</Pagination>
-									</nav>
+									
 								</CardFooter>
 							</Card>
 						</div>
@@ -282,8 +269,8 @@ const BetList = ({ getBet, getBets, updateBet, bet: { bets, loading } }) => {
 
 BetList.propTypes = {
     getBets: PropTypes.func.isRequired,
-    getBet: PropTypes.func.isRequired,
-    updateBet: PropTypes.func.isRequired,
+        updateBet: PropTypes.func.isRequired,
+    deleteBet: PropTypes.func.isRequired,
     bet: PropTypes.object.isRequired
 };
 
@@ -291,4 +278,4 @@ const mapStateToProps = (state) => ({
     bet: state.bet
 });
 
-export default connect(mapStateToProps, { getBet, getBets, updateBet })(BetList);
+export default connect(mapStateToProps, {  getBets, updateBet, deleteBet })(BetList);

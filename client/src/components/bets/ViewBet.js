@@ -1,61 +1,60 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 import AlertMsg from '../Alert';
 import { connect } from 'react-redux';
 import Sidebar from '../Sidebar';
+import Spinner from '../Spinner';
 import routes from '../routes';
 
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col } from 'reactstrap';
 
-import { addBet } from '../../actions/bet';
+import { updateBet } from '../../actions/bet';
 
-const AddBet = ({ addBet, history }) => {
+const ViewBet = (props) => {
 	const inputRef = useRef('mainContent');
+	let history = useHistory();
 	const [ formData, setFormData ] = useState({
-		sport: '',
-		country: '',
-		competition: '',
-		team1: '',
-		team2: '',
-		market: '',
-		bet: '',
-		stake: 0,
-		odds: 0,
-		status: 'pending',
-		locked: false,
-		profit: 0
+		sport: props.location.state.sport,
+		country: props.location.state.country,
+		competition: props.location.state.competition,
+		fixture: props.location.state.fixture,
+		market: props.location.state.market,
+		bet: props.location.state.bet,
+		stake: props.location.state.stake,
+		odds: props.location.state.odds,
+		locked: props.location.state.locked,
+		status: props.location.state.status
 	});
-	const { sport, country, competition, team1, team2, market, bet, stake, odds, status, locked, profit } = formData;
-
+	const { sport, country, competition, fixture, market, bet, stake, odds, locked, status } = formData;
+	const defaultLocked = props.location.state.locked;
 	const onChange = (e) => {
 		if (e.target.type === 'checkbox') {
 			setFormData({...formData, [e.target.name]: e.target.checked});
 		} else {
 		    setFormData({...formData, [e.target.name]: e.target.value });
 		}
+		
 	}
-
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		addBet(
+		props.updateBet(
 			{
 				sport,
 				country,
 				competition,
-				fixture: `${team1} vs ${team2}`,
+				fixture,
 				market,
 				bet,
 				stake,
 				odds,
 				status,
-				locked,
-				profit
-			},
+				locked
+			}, props.location.state.id,
 			history
 		);
-		// console.log({ sport, country, competition, fixture: `${team1} vs ${team2}`, market, bet, stake, odds, status, locked, profit });
-	};
+	}; 
+
 	return (
 		<Container fluid>
 			<Sidebar
@@ -75,7 +74,7 @@ const AddBet = ({ addBet, history }) => {
 								<CardHeader className="bg-white border-0">
 									<Row className="align-items-center">
 										<Col xs="8">
-											<h3 className="mb-0">Add bet</h3>
+											<h3 className="mb-0">View Bet</h3>
 										</Col>
 									</Row>
 								</CardHeader>
@@ -94,6 +93,7 @@ const AddBet = ({ addBet, history }) => {
 														placeholder="Sport"
 														type="text"
 														onChange={onChange}
+														disabled={defaultLocked}
 														required
 													/>
 												</FormGroup>
@@ -112,6 +112,7 @@ const AddBet = ({ addBet, history }) => {
 														placeholder="Country"
 														type="text"
 														onChange={onChange}
+														disabled={defaultLocked}
 														required
 													/>
 												</FormGroup>
@@ -128,40 +129,26 @@ const AddBet = ({ addBet, history }) => {
 														placeholder="Competition"
 														type="text"
 														onChange={onChange}
+														disabled={defaultLocked}
 														required
 													/>
 												</FormGroup>
 											</Col>
 										</Row>
 										<Row>
-											<Col lg="6">
+											<Col>
 												<FormGroup>
 													<label className="form-control-label" htmlFor="input-team1">
-														Team 1
+														Fixture
 													</label>
 													<Input
 														className="form-control-alternative"
-														name="team1"
-														value={team1}
-														placeholder="Team 1"
+														name="fixture"
+														value={fixture}
+														placeholder="Fixture"
 														type="text"
 														onChange={onChange}
-														required
-													/>
-												</FormGroup>
-											</Col>
-											<Col lg="6">
-												<FormGroup>
-													<label className="form-control-label" htmlFor="input-team2">
-														Team 2
-													</label>
-													<Input
-														className="form-control-alternative"
-														name="team2"
-														value={team2}
-														placeholder="Team 2"
-														type="text"
-														onChange={onChange}
+														disabled={defaultLocked}
 														required
 													/>
 												</FormGroup>
@@ -180,22 +167,24 @@ const AddBet = ({ addBet, history }) => {
 														placeholder="Market"
 														type="text"
 														onChange={onChange}
+														disabled={defaultLocked}
 														required
 													/>
 												</FormGroup>
 											</Col>
 											<Col lg="6">
 												<FormGroup>
-													<label className="form-control-label" htmlFor="bet">
+													<label className="form-control-label" htmlFor="b">
 														Bet
 													</label>
 													<Input
 														className="form-control-alternative"
 														name="bet"
 														value={bet}
-														placeholder="Bet"
+														placeholder="bet"
 														type="text"
 														onChange={onChange}
+														disabled={defaultLocked}
 														required
 													/>
 												</FormGroup>
@@ -214,6 +203,7 @@ const AddBet = ({ addBet, history }) => {
 														placeholder="Stake"
 														type="text"
 														onChange={onChange}
+														disabled={defaultLocked}
 														required
 													/>
 												</FormGroup>
@@ -230,20 +220,47 @@ const AddBet = ({ addBet, history }) => {
 														placeholder="Odds"
 														type="number"
 														onChange={onChange}
+														disabled={defaultLocked}
 														required
 													/>
 												</FormGroup>
 											</Col>
 										</Row>
+										<Row>
+											<Col>
+												<FormGroup>
+													<label className="form-control-label" htmlFor="status">
+														Status
+													</label>
+													<Input
+														className="form-control-alternative"
+														name="status"
+														value={status}
+														type="select"
+														onChange={onChange}
+														disabled={defaultLocked}
+														required
+													>
+														<option value="win">Win</option>
+															<option value="half-win">Half-win</option>
+															<option value="pending">Pending</option>
+															<option value="refund">Refund</option>
+															<option value="half-loss">Half-loss</option>
+															<option value="loss">Loss</option>
+													</Input>
+												</FormGroup>
+											</Col>
+										</Row>
 										<hr className="my-4" />
 										<div className="custom-control custom-control-alternative custom-checkbox mb-3">
-											<Input
+											<input
 												className="custom-control-input"
 												id="customCheck5"
 												name="locked"
 												checked={locked}
 												type="checkbox"
 												onChange={onChange}
+												disabled={defaultLocked}
 											/>
 											<label className="custom-control-label" htmlFor="customCheck5">
 												Lock bet
@@ -255,8 +272,8 @@ const AddBet = ({ addBet, history }) => {
 										</div>
 										<div className="container-fluid">
 											<Button outline color="secondary" onClick={() => history.goBack()}>Cancel</Button>
-											<Button color="success" type="submit">
-												Submit
+											<Button color="success" type="submit" disabled={defaultLocked}>
+												Update
 											</Button>
 										</div>
 									</Form>
@@ -270,8 +287,8 @@ const AddBet = ({ addBet, history }) => {
 	);
 };
 
-AddBet.propTypes = {
-	addBet: PropTypes.func.isRequired
+ViewBet.propTypes = {
+	updateBet: PropTypes.func.isRequired
 };
 
-export default connect(null, { addBet })(AddBet);
+export default connect(null, {updateBet})(ViewBet);

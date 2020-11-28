@@ -3,6 +3,7 @@ import {
 	ADD_BET,
 	GET_BET,
 	UPDATE_STATUS,
+	DELETE_BET,
 	BET_ERROR
 } from '../actions/types';
 
@@ -43,12 +44,12 @@ export default function (state = initialState, action) {
 		        ),
 		        loading: false
 			}
-		// case DELETE_POST:
-		// 	return {
-		// 		...state,
-		// 		posts: state.posts.filter((post) => post._id !== payload),
-		// 		loading: false
-		// 	};
+		case DELETE_BET:
+			return {
+				...state,
+				bets: state.bets.filter((bet) => bet.id !== payload),
+				loading: false
+			};
 		case BET_ERROR:
 			return {
 				...state,

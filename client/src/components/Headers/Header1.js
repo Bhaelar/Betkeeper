@@ -15,10 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 // reactstrap components
-import { Card, CardBody, CardTitle, Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Card, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
 
 const Header1 = ({ bets }) => {
   const calcProfit = () => {
@@ -65,7 +65,7 @@ const Header1 = ({ bets }) => {
                           Profit
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">
-                          {profit < 0 ? `${profit}` : `+${profit}`}
+                          {profit < 0 ? `${(Math.round(profit * 100) / 100)}` : `+${(Math.round(profit * 100) / 100)}`}
                         </span>
                       </div>
                       <Col className="col-auto">

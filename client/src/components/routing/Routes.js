@@ -6,6 +6,7 @@ import AlertMsg from '../Alert';
 import Home from '../Home';
 import AddBet from '../bets/AddBet';
 import BetList from '../bets/BetList';
+import ViewBet from '../bets/ViewBet';
 import PrivateRoute from './PrivateRoutes';
 
 import {Container} from 'reactstrap';
@@ -20,6 +21,7 @@ const Routes = () => {
         <PrivateRoute exact path="/" component={Home} />
         <PrivateRoute exact path="/add" component={AddBet} />
         <PrivateRoute exact path="/history" component={BetList} />
+        <PrivateRoute exact path="/view" component={ViewBet} />
       </Switch>
     </div>
   );

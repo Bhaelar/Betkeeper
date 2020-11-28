@@ -15,11 +15,11 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import Sort from '../bets/Sort';
 
 // reactstrap components
-import { Card, CardBody, CardTitle, Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Card, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
 
 const Header = ({ bets, date, sport, country, competition, market, status, onDateChange, onSportChange, onCountryChange, onCompetitionChange, onMarketChange, onStatusChange }) => {
 	const calcProfit = () => {
@@ -66,7 +66,7 @@ const Header = ({ bets, date, sport, country, competition, market, status, onDat
 													Profit
 												</CardTitle>
 												<span className="h2 font-weight-bold mb-0">
-													{profit < 0 ? `${profit}` : `+${profit}`}
+													{profit < 0 ? `${(Math.round(profit * 100) / 100)}` : `+${(Math.round(profit * 100) / 100)}`}
 												</span>
 											</div>
 											<Col className="col-auto">
@@ -79,7 +79,7 @@ const Header = ({ bets, date, sport, country, competition, market, status, onDat
 											<span className="text-success mr-2">
 												<i className="fa fa-arrow-up" /> 3.48%
 											</span>{' '}
-											<span className="text-nowrap">{date == 0 ? `All-time` : date == 1 ? `Since yesterday` : date == 7 ? `Since last week` : `Since last month`}</span>
+											<span className="text-nowrap">{date === 0 ? `All-time` : date === 1 ? `Since yesterday` : date === 7 ? `Since last week` : `Since last month`}</span>
 										</p>
 									</CardBody>
 								</Card>
@@ -104,7 +104,7 @@ const Header = ({ bets, date, sport, country, competition, market, status, onDat
 											<span className="text-danger mr-2">
 												<i className="fas fa-arrow-down" /> 3.48%
 											</span>{' '}
-											<span className="text-nowrap">{date == 0 ? `All-time` : date == 1 ? `Since yesterday` : date == 7 ? `Since last week` : `Since last month`}</span>
+											<span className="text-nowrap">{date === 0 ? `All-time` : date === 1 ? `Since yesterday` : date === 7 ? `Since last week` : `Since last month`}</span>
 										</p>
 									</CardBody>
 								</Card>
@@ -129,7 +129,7 @@ const Header = ({ bets, date, sport, country, competition, market, status, onDat
 											<span className="text-warning mr-2">
 												<i className="fas fa-arrow-down" /> 1.10%
 											</span>{' '}
-											<span className="text-nowrap">{date == 0 ? `All-time` : date == 1 ? `Since yesterday` : date == 7 ? `Since last week` : `Since last month`}</span>
+											<span className="text-nowrap">{date === 0 ? `All-time` : date === 1 ? `Since yesterday` : date === 7 ? `Since last week` : `Since last month`}</span>
 										</p>
 									</CardBody>
 								</Card>
