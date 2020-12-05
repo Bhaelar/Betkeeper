@@ -1,25 +1,7 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import Home from './Home.js';
-import Register from './auth/Register.js';
-import Login from './auth/Login.js';
+import Home from './layouts/Home.js';
 import AddBet from './bets/AddBet';
 import BetList from './bets/BetList';
+import Profile from './layouts//Profile';
 
 var routes = [
 	{
@@ -42,6 +24,13 @@ var routes = [
 		icon: 'fas fa-chart-line text-primary',
 		component: BetList,
 		layout: '/history'
+	},
+	{
+		path: '/profile',
+		name: 'Profile',
+		icon: 'fas fa-user text-green',
+		component: Profile,
+		layout: '/profile'
 	}
 ];
 export default routes;

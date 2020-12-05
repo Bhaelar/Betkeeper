@@ -5,6 +5,9 @@ const User = function(user) {
   this.email = user.email;
   this.username = user.username;
   this.password = user.password;
+  this.image = user.image;
+  this.country = user.country;
+  this.fav_team = user.fav_team;
 };
 
 User.create = (newUser, result) => {
@@ -90,10 +93,9 @@ User.getAll = result => {
   });
 };
 
-User.updateById = (id, User, result) => {
+User.updateById = (id, country, fav_team, image, result) => {
   db.query(
-    "UPDATE users SET email = ?, name = ?, active = ? WHERE id = ?",
-    [User.email, User.name, User.active, id],
+    `UPDATE users SET country = '${country}', fav_team = '${fav_team}', image='${image}' WHERE id = ${id}`,
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -107,8 +109,8 @@ User.updateById = (id, User, result) => {
         return;
       }
 
-      console.log("updated User: ", { id: id, ...User });
-      result(null, { id: id, ...User });
+      console.log("updated User: ", { id: id, country: country, fav_team: fav_team, image: image });
+      result(null, { id: id, country: country, fav_team: fav_team, image: image });
     }
   );
 };

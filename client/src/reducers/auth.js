@@ -5,6 +5,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   //LOGIN_FAIL,
+  USER_UPDATED,
   LOGOUT,
   ACCOUNT_DELETED
 } from '../actions/types';
@@ -21,6 +22,7 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case USER_LOADED:
+    case USER_UPDATED:
       return {
         ...state,
         isAuthenticated: true,

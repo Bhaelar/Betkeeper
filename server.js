@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mysql = require('mysql');
+const fileUpload = require('express-fileupload')
 const {connectDB} = require('./config/db');
 
 const users = require('./routes/api/users');
@@ -17,6 +18,7 @@ const app = express();
 
 // Bodyparser
 app.use(express.json());
+app.use(fileUpload());
 
 // Define Routes
 app.use('/api/users', users);

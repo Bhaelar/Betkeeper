@@ -1,9 +1,9 @@
 import api from '../utils/api';
 import { setAlert } from './alert';
-import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT } from './types';
+import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, USER_UPDATED } from './types';
 
 // Load User
-export const loadUser = () => async (dispatch) => {
+export const loadUser = (history) => async (dispatch) => {
 	try {
 		const res = await api.get('/auth');
 
@@ -11,6 +11,7 @@ export const loadUser = () => async (dispatch) => {
 			type: USER_LOADED,
 			payload: res.data
 		});
+		history.push('/');
 	} catch (err) {
 		dispatch({
 			type: AUTH_ERROR
@@ -42,9 +43,32 @@ export const register = (formData, history) => async (dispatch) => {
 	}
 };
 
+// Update user info
+export const updateUser = ({country, fav_team, image}) => async (dispatch) => {
+	try {
+		const body = JSON.stringify({country, fav_team, image});
+		const res = await api.put('/users/update', body);
+
+		dispatch({
+			type: USER_UPDATED,
+			payload: res.data
+		});
+		dispatch(setAlert('Profile updated', 'success'));
+	} catch (err) {
+		const errors = err.response.data.errors;
+
+		if (errors) {
+			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+		}
+
+		dispatch({
+			type: REGISTER_FAIL
+		});
+	}
+}
+
 // Login User
 export const login = (formData, history) => async (dispatch) => {
-	
 	try {
 		const res = await api.post('/auth', formData);
 
@@ -53,9 +77,9 @@ export const login = (formData, history) => async (dispatch) => {
 			payload: res.data
 		});
 
-        dispatch(loadUser());
+        dispatch(loadUser(history));
         
-        history.push('/');
+        
 	} catch (err) {
 		const errors = err.response.data.errors;
         console.log(errors);
