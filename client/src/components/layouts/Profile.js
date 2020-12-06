@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateUser } from '../../actions/auth';
 import { countries } from '../../utils/market';
-import AdminNavbar from './Navbar.js';
+
 
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col } from 'reactstrap';
@@ -49,7 +49,7 @@ const Profile = ({ updateUser, auth: { user } }) => {
 
 	return (
 		<Fragment>
-			<AdminNavbar image={user.image} />
+			
 			<ProfileHeader username={user.username} />
 			{/* Page content */}
 			<Container className="mt--7">

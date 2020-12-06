@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Routes from './components/routing/Routes';
 
 // Redux
@@ -21,7 +21,9 @@ function App () {
 	return (
 		<Provider store={store}>
 			<Router>
-				<Route component={Routes} />
+				<Switch>
+					<Route component={Routes} />
+				</Switch>
 			</Router>
 		</Provider>
 	);

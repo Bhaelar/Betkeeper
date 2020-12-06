@@ -3,13 +3,12 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PlainHeader from '../Headers/PlainHeader';
-import AdminNavbar from '../layouts/Navbar.js';
 
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col } from 'reactstrap';
 
 import { addBet } from '../../actions/bet';
 
-const AddBet = ({ addBet, history, auth: {user} }) => {
+const AddBet = ({ addBet, history }) => {
 	const [ formData, setFormData ] = useState({
 		sport: '',
 		country: '',
@@ -55,7 +54,6 @@ const AddBet = ({ addBet, history, auth: {user} }) => {
 	};
 	return (
 		<Container>
-			<AdminNavbar image={user.image} />
 			<PlainHeader />
 			<Container className="my-4">
 				<Row>
@@ -261,12 +259,8 @@ const AddBet = ({ addBet, history, auth: {user} }) => {
 };
 
 AddBet.propTypes = {
-	addBet: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired
+	addBet: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-	auth: state.auth
-});
 
-export default connect(mapStateToProps, { addBet })(AddBet);
+export default connect(null, { addBet })(AddBet);

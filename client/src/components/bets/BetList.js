@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Moment from 'react-moment';
 import { v4 as uuidv4 } from 'uuid';
 import Header from '../Headers/Header';
-import AdminNavbar from '../layouts/Navbar.js';
 import Spinner from '../Spinner';
 import { Link } from 'react-router-dom';
 
@@ -27,7 +26,7 @@ import {
 	ModalFooter
 } from 'reactstrap';
 
-const BetList = ({ getBets, updateBet, deleteBet, bet: { bets, loading }, auth: {user} }) => {
+const BetList = ({ getBets, updateBet, deleteBet, bet: { bets, loading } }) => {
 	useEffect(
 		() => {
 			getBets();
@@ -114,7 +113,6 @@ const BetList = ({ getBets, updateBet, deleteBet, bet: { bets, loading }, auth: 
 		<Spinner />
 	) : (
 		<Container>
-			<AdminNavbar image={user.image} />
 			<Header
 				bets={filterBets}
 				date={date}
@@ -179,8 +177,7 @@ const BetList = ({ getBets, updateBet, deleteBet, bet: { bets, loading }, auth: 
 															locked: b.locked,
 															status: b.status,
 															id: b.id
-														},
-														image: user.image
+														}
 													}}
 												>
 													{b.fixture}
@@ -288,13 +285,11 @@ BetList.propTypes = {
 	getBets: PropTypes.func.isRequired,
 	updateBet: PropTypes.func.isRequired,
 	deleteBet: PropTypes.func.isRequired,
-	bet: PropTypes.object.isRequired,
-	auth: PropTypes.object.isRequired
+	bet: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-	bet: state.bet,
-	auth: state.auth
+	bet: state.bet
 });
 
 export default connect(mapStateToProps, { getBets, updateBet, deleteBet })(BetList);

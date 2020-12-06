@@ -1,31 +1,52 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Container } from 'reactstrap';
 import Spinner from '../Spinner';
-// import Navbar from '../layout/Navbar';
+import AdminNavbar from '../layouts/Navbar';
+import Sidebar from '../layouts/Sidebar.js';
+import routes from '../routes.js';
+import AlertMsg from '../Alert';
+import Footer from '../Footers/Footer.js';
 
 const PrivateRoute = ({
   component: Component,
-  auth: { isAuthenticated, loading },
+  auth: { isAuthenticated, loading, user },
   ...rest
-}) => (
-  <Route
-    {...rest}
-    render={props =>
-      loading ? (
-        <Spinner />
-      ) : isAuthenticated ? (
-          <>
-          {/* <Navbar /> */}
-            <Component {...props} />
-            </>
-      ) : (
-        <Redirect to="/login" />
-      )
-    }
-  />
-);
+}) => {
+  const inputRef = useRef('mainContent');
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        loading ? (
+          <Spinner />
+        ) : isAuthenticated ? (
+            <>
+            <Sidebar
+              routes={routes}
+              logo={{
+                innerLink: '/',
+                imgSrc: user.image,
+                imgAlt: '...'
+              }}
+            />
+              <div className="main-content" ref={inputRef}>
+                <AlertMsg />
+                <AdminNavbar image={user.image} />
+                <Component {...props} />
+                <Container fluid>
+                  <Footer />
+                </Container>
+              </div>
+              </>
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
+)};
 
 PrivateRoute.propTypes = {
   auth: PropTypes.object.isRequired

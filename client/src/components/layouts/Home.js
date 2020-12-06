@@ -13,11 +13,11 @@ import { getBets } from '../../actions/bet';
 
 // core components
 import { colors, chartOptions, parseOptions } from '../../variables/charts.js';
-import AdminNavbar from './Navbar.js';
 import Header1 from '../Headers/Header1.js';
 import Spinner from '../Spinner';
+import DefaultLayout from './DefaultLayout';
 
-export const Home = ({ getBets, bet: { bets, loading }, auth: { user } }) => {
+export const Home = ({ getBets, bet: { bets, loading } }) => {
 	useEffect(
 		() => {
 			getBets();
@@ -124,7 +124,6 @@ export const Home = ({ getBets, bet: { bets, loading }, auth: { user } }) => {
 		<Spinner />
 	) : (
 		<Container>
-			<AdminNavbar image={user.image} />
 			<Header1 bets={bets} />
 			<Container className="mt--7">
 				<Row>
@@ -263,13 +262,11 @@ export const Home = ({ getBets, bet: { bets, loading }, auth: { user } }) => {
 
 Home.propTypes = {
 	getBets: PropTypes.func.isRequired,
-	bet: PropTypes.object.isRequired,
-	auth: PropTypes.object.isRequired
+	bet: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-	bet: state.bet,
-	auth: state.auth
+	bet: state.bet
 });
 
 export default connect(mapStateToProps, { getBets })(Home);

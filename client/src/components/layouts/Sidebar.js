@@ -35,6 +35,8 @@ import {
 	Col
 } from 'reactstrap';
 
+import image from '../../assets/img/betkeeper-logo.png';
+
 var ps;
 
 class Sidebar extends React.Component {
@@ -96,18 +98,17 @@ class Sidebar extends React.Component {
 						<span className="navbar-toggler-icon" />
 					</button>
 					{/* Brand */}
-					{logo ? (
-						<NavbarBrand className="pt-0" {...navbarBrandProps}>
-							<img alt={logo.imgAlt} className="navbar-brand-img" src={logo.imgSrc} />
-						</NavbarBrand>
-					) : null}
+					<NavbarBrand className="pt-0" {...navbarBrandProps}>
+						<img alt="betkeeper-logo" className="navbar-brand-img" src={image} />
+					</NavbarBrand>
+					
 					{/* User */}
 					<Nav className="align-items-center d-md-none">
 						<UncontrolledDropdown nav>
 							<DropdownToggle nav>
 								<Media className="align-items-center">
 									<span className="avatar avatar-sm rounded-circle">
-										<img alt="..." src={require('../../assets/img/theme/team-1-800x800.jpg')} />
+										<img alt="..." src={logo.imgSrc} />
 									</span>
 								</Media>
 							</DropdownToggle>
@@ -162,19 +163,19 @@ class Sidebar extends React.Component {
 						{/* Navigation */}
 						<Nav className="mb-md-3" navbar>
 							<NavItem>
-								<NavLink href="/feed">
+								<NavLink to="/feed" tag={NavLinkRRD}>
 									<i className="ni ni-align-center" />
 									My feed
 								</NavLink>
 							</NavItem>
 							<NavItem>
-								<NavLink href="/tipsters">
+								<NavLink to="/tipsters" tag={NavLinkRRD}>
 									<i className="ni ni-world-2" />
 									Hottest tipsters
 								</NavLink>
 							</NavItem>
 							<NavItem>
-								<NavLink href="/contests">
+								<NavLink to="/contests" tag={NavLinkRRD}>
 									<i className="ni ni-trophy" />
 									Contests
 								</NavLink>

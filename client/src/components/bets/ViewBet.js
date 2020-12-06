@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PlainHeader from '../Headers/PlainHeader';
-import AdminNavbar from '../layouts/Navbar.js';
 
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col } from 'reactstrap';
 
@@ -54,7 +53,6 @@ const ViewBet = (props) => {
 
 	return (
 		<Container>
-			<AdminNavbar image={props.location.image} />
 			<PlainHeader />
 			<Container className="my-4">
 				<Row>
