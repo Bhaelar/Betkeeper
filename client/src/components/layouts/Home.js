@@ -39,6 +39,29 @@ export const Home = ({ getBets, bet: { bets, loading } }) => {
 		}
 		return result;
 	};
+
+	const popularComps = (arr) => {
+		let result = [];
+		for(let i = 0 ; i < arr.length ; i++) {
+			let obj = {};
+			obj.competition = arr[i];
+			obj.number = bets.filter((u) => u.competition.toLowerCase() === arr[i]).length;
+			result.push(obj);
+		}
+		return result.sort((a, b) => b.number - a.number);
+	};
+
+	const calcROI = (comp) => {
+		let arr = bets.filter((u) => u.competition.toLowerCase() === comp);
+		let stake = 0;
+		let profit = 0;
+		for(let i = 0 ; i < arr.length ; i++) {
+			stake += arr[i].stake;
+			profit += arr[i].profit;
+		}
+		return (profit/stake)*100;
+	}
+
 	const [ chartExample1Data, setChartExample1Data ] = useState('data1');
 	const calc = () => {
 		let profits = [];
@@ -226,27 +249,18 @@ export const Home = ({ getBets, bet: { bets, loading } }) => {
 									<tr>
 										<th scope="col">Competition</th>
 										<th scope="col">No of Bets</th>
-										<th scope="col" />
+										<th scope="col">ROI</th>
 									</tr>
 								</thead>
 								<tbody>
-									{unique(bets).map((b) => (
+									{popularComps(unique(bets)).map((b) => (
 										<tr>
 											<th scope="row" className="text-capitalize">
-												{b}
+												{b.competition}
 											</th>
-											<td>{bets.filter((u) => u.competition.toLowerCase() === b).length}</td>
+											<td>{b.number}</td>
 											<td>
-												<div className="d-flex align-items-center">
-													<span className="mr-2">60%</span>
-													<div>
-														<Progress
-															max="100"
-															value="60"
-															barClassName="bg-gradient-danger"
-														/>
-													</div>
-												</div>
+												{Math.round(calcROI(b.competition) * 100) / 100}%
 											</td>
 										</tr>
 									))}

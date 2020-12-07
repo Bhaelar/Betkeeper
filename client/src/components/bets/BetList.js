@@ -26,7 +26,7 @@ import {
 	ModalFooter
 } from 'reactstrap';
 
-const BetList = ({ getBets, updateBet, deleteBet, bet: { bets, loading } }) => {
+const BetList = ({ getBets, updateBet, deleteBet, history, bet: { bets, loading } }) => {
 	useEffect(
 		() => {
 			getBets();
@@ -109,7 +109,7 @@ const BetList = ({ getBets, updateBet, deleteBet, bet: { bets, loading } }) => {
 		.filter((b) => filterOthers(b.market, market))
 		.filter((b) => filterOthers(b.status, status));
 
-	return loading === true ? (
+	return loading === true || !bets ? (
 		<Spinner />
 	) : (
 		<Container>
@@ -221,7 +221,7 @@ const BetList = ({ getBets, updateBet, deleteBet, bet: { bets, loading } }) => {
 																						: 0,
 																	locked: b.locked
 																},
-																b.id
+																b.id,history
 															);
 														}}
 													>

@@ -3,7 +3,7 @@ import { setAlert } from './alert';
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, USER_UPDATED } from './types';
 
 // Load User
-export const loadUser = (history) => async (dispatch) => {
+export const loadUser = () => async (dispatch) => {
 	try {
 		const res = await api.get('/auth');
 
@@ -11,7 +11,6 @@ export const loadUser = (history) => async (dispatch) => {
 			type: USER_LOADED,
 			payload: res.data
 		});
-		history.push('/');
 	} catch (err) {
 		dispatch({
 			type: AUTH_ERROR
@@ -68,7 +67,7 @@ export const updateUser = ({country, fav_team, image}) => async (dispatch) => {
 }
 
 // Login User
-export const login = (formData, history) => async (dispatch) => {
+export const login = (formData) => async (dispatch) => {
 	try {
 		const res = await api.post('/auth', formData);
 
@@ -77,10 +76,8 @@ export const login = (formData, history) => async (dispatch) => {
 			payload: res.data
 		});
 
-        dispatch(loadUser(history));
-        
-        
-	} catch (err) {
+        dispatch(loadUser());
+    } catch (err) {
 		const errors = err.response.data.errors;
         console.log(errors);
 		if (errors) {
