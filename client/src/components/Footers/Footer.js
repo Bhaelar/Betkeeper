@@ -58,6 +58,21 @@ class Footer extends React.Component {
             </Nav>
           </Col>
         </Row>
+        <Row className="mt-3 align-items-center justify-content-xl-between">
+          <Col>
+            <div className="copyright text-center text-muted">
+              Template by
+              <a
+                className="font-weight-bold ml-1"
+                href="https://www.creative-tim.com/?ref=adr-admin-footer"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Creative Tim
+              </a>
+            </div>
+          </Col>
+        </Row>
       </footer>
     );
   }

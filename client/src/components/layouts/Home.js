@@ -250,6 +250,7 @@ export const Home = ({ getBets, bet: { bets, loading } }) => {
 										<th scope="col">Competition</th>
 										<th scope="col">No of Bets</th>
 										<th scope="col">ROI</th>
+										<th scope="col" />
 									</tr>
 								</thead>
 								<tbody>
@@ -261,6 +262,15 @@ export const Home = ({ getBets, bet: { bets, loading } }) => {
 											<td>{b.number}</td>
 											<td>
 												{Math.round(calcROI(b.competition) * 100) / 100}%
+											</td>
+											<td>
+												<div>
+							                            <Progress
+							                              max="100"
+							                              value={Math.abs(calcROI(b.competition))}
+							                              barClassName={calcROI(b.competition) > 0 ? "bg-gradient-success" : "bg-gradient-danger"}
+							                            />
+							                    </div>
 											</td>
 										</tr>
 									))}
