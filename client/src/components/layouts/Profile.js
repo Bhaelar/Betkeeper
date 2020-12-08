@@ -121,8 +121,12 @@ const Profile = ({ updateUser, auth: { user } }) => {
 														type="file"
 														accept="image/*"
 														onChange={onImageChange}
+														disabled={user.id === 6}
 													/>
-													<small>{status}</small>
+													{user.id === 6 ? 
+														<small className="text-muted">Disabled for demo account</small> :
+														<small className="text-muted">{status}</small>
+													}
 												</FormGroup>
 											</Col>
 										</Row>

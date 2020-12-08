@@ -83,6 +83,7 @@ const AddBet = ({ addBet, history }) => {
 													onChange={onChange}
 													required
 												/>
+												<small className="text-muted">e.g. Football</small>
 											</FormGroup>
 										</Col>
 									</Row>
@@ -101,6 +102,7 @@ const AddBet = ({ addBet, history }) => {
 													onChange={onChange}
 													required
 												/>
+												<small className="text-muted">e.g. England</small>
 											</FormGroup>
 										</Col>
 										<Col lg="6">
@@ -117,6 +119,7 @@ const AddBet = ({ addBet, history }) => {
 													onChange={onChange}
 													required
 												/>
+												<small className="text-muted">e.g. Premier league</small>
 											</FormGroup>
 										</Col>
 									</Row>
@@ -135,6 +138,7 @@ const AddBet = ({ addBet, history }) => {
 													onChange={onChange}
 													required
 												/>
+												<small className="text-muted">e.g. Manchester United</small>
 											</FormGroup>
 										</Col>
 										<Col lg="6">
@@ -151,6 +155,7 @@ const AddBet = ({ addBet, history }) => {
 													onChange={onChange}
 													required
 												/>
+												<small className="text-muted">e.g. Chelsea</small>
 											</FormGroup>
 										</Col>
 									</Row>
@@ -169,6 +174,7 @@ const AddBet = ({ addBet, history }) => {
 													onChange={onChange}
 													required
 												/>
+												<small className="text-muted">e.g. Fulltime result</small>
 											</FormGroup>
 										</Col>
 										<Col lg="6">
@@ -185,6 +191,7 @@ const AddBet = ({ addBet, history }) => {
 													onChange={onChange}
 													required
 												/>
+												<small className="text-muted">e.g. Home win</small>
 											</FormGroup>
 										</Col>
 									</Row>
@@ -203,6 +210,7 @@ const AddBet = ({ addBet, history }) => {
 													onChange={onChange}
 													required
 												/>
+												<small className="text-muted">e.g. 1000</small>
 											</FormGroup>
 										</Col>
 										<Col lg="6">
@@ -219,6 +227,7 @@ const AddBet = ({ addBet, history }) => {
 													onChange={onChange}
 													required
 												/>
+												<small className="text-muted">e.g. 2.34</small>
 											</FormGroup>
 										</Col>
 									</Row>

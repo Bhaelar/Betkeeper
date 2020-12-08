@@ -73,6 +73,18 @@ const Login = ({ login, isAuthenticated, user }) => {
 											Sign in
 										</button>
 										<div className="text-center">
+											<Link className="small" onClick={(e) => {
+												e.preventDefault();
+												let demoEmail = "janedoe@gmail.com";
+												let demoPassword = "123456";
+												setFormData({ ...formData, [email]: demoEmail });
+												setFormData({ ...formData, [password]: demoPassword });
+												login(formData);
+											}}>
+												Login with demo account
+											</Link>
+										</div>
+										<div className="text-center">
 											<Link className="small" to="/register">
 												Create an account
 											</Link>
