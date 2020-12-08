@@ -1,6 +1,0 @@
-{
-    "SQL_USERNAME": "b1402d8af2b596",
-    "SQL_PASSWORD": "7326c2d0",
-    "SQL_DATABASE": "heroku_1151910a96ad263",
-    "jwtSecret": "mySecretToken"
-}
