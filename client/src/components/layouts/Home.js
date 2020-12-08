@@ -67,7 +67,7 @@ export const Home = ({ getBets, bet: { bets, loading } }) => {
 		let profits = [];
 		let sum = 0;
 		for (let i = bets.length - 1; i >= 0; i--) {
-			sum += bets[i].profit;
+			sum += Math.round(bets[i].profit * 100) / 100;
 			profits.push(sum);
 		}
 		return profits;

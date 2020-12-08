@@ -163,19 +163,19 @@ class Sidebar extends React.Component {
 						{/* Navigation */}
 						<Nav className="mb-md-3" navbar>
 							<NavItem>
-								<NavLink to="/feed" tag={NavLinkRRD}>
+								<NavLink to="/feed" tag={NavLinkRRD} onClick={this.closeCollapse}>
 									<i className="ni ni-align-center" />
 									My feed
 								</NavLink>
 							</NavItem>
 							<NavItem>
-								<NavLink to="/tipsters" tag={NavLinkRRD}>
+								<NavLink to="/tipsters" tag={NavLinkRRD} onClick={this.closeCollapse}>
 									<i className="ni ni-world-2" />
 									Hottest tipsters
 								</NavLink>
 							</NavItem>
 							<NavItem>
-								<NavLink to="/contests" tag={NavLinkRRD}>
+								<NavLink to="/contests" tag={NavLinkRRD} onClick={this.closeCollapse}>
 									<i className="ni ni-trophy" />
 									Contests
 								</NavLink>
