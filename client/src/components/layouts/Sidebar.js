@@ -1,8 +1,10 @@
 /*eslint-disable*/
 import React from 'react';
+import { connect } from 'react-redux';
 import { NavLink as NavLinkRRD, Link } from 'react-router-dom';
 // nodejs library to set properties for components
 import { PropTypes } from 'prop-types';
+import { logout } from '../../actions/auth';
 
 // reactstrap components
 import {
@@ -121,7 +123,7 @@ class Sidebar extends React.Component {
 									<span>My profile</span>
 								</DropdownItem>
 								<DropdownItem divider />
-								<DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+								<DropdownItem onClick={this.props.logout}>
 									<i className="ni ni-user-run" />
 									<span>Logout</span>
 								</DropdownItem>
@@ -195,6 +197,7 @@ Sidebar.defaultProps = {
 Sidebar.propTypes = {
 	// links that will be displayed inside the component
 	routes: PropTypes.arrayOf(PropTypes.object),
+	logout: PropTypes.func.isRequired,
 	logo: PropTypes.shape({
 		// innerLink is for links that will direct the user within the app
 		// it will be rendered as <Link to="...">...</Link> tag
@@ -209,4 +212,4 @@ Sidebar.propTypes = {
 	})
 };
 
-export default Sidebar;
+export default connect(null, {logout})(Sidebar);

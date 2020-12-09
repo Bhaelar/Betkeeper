@@ -34,7 +34,7 @@ const PrivateRoute = ({
             />
               <div className="main-content" ref={inputRef}>
                 <AlertMsg />
-                <AdminNavbar image={user.image} />
+                <AdminNavbar user={user} />
                 <Component {...props} />
                 <Container fluid>
                   <Footer />

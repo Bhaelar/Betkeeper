@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mysql = require('mysql');
+const path = require('path');
 const fileUpload = require('express-fileupload');
 
 const users = require('./routes/api/users');
