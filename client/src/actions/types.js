@@ -9,19 +9,9 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const USER_UPDATED = 'USER_UPDATED';
 
 export const LOGOUT = 'LOGOUT';
-export const GET_PROFILE = 'GET_PROFILE';
-export const GET_PROFILES = 'GET_PROFILES';
-
-export const UPDATE_PROFILE = 'UPDATE_PROFILE';
-export const CLEAR_PROFILE = 'CLEAR_PROFILE';
-export const PROFILE_ERROR = 'PROFILE_ERROR';
-export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
 export const GET_BETS = 'GET_BETS';
 export const GET_BET = 'GET_BET';
 export const BET_ERROR = 'BET_ERROR';
 export const UPDATE_STATUS = 'UPDATE_STATUS';
-export const UPDATE_COMMENT_LIKES = 'UPDATE_COMMENT_LIKES';
 export const DELETE_BET = 'DELETE_BET';
 export const ADD_BET = 'ADD_BET';
-export const ADD_COMMENT = 'ADD_COMMENT';
-export const REMOVE_COMMENT = 'REMOVE_COMMENT';

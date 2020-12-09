@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loadUser, logout } from '../../actions/auth';
+import { logout } from '../../actions/auth';
 import { Link } from 'react-router-dom';
 
 // reactstrap components
@@ -18,7 +18,7 @@ import {
 
 // import image from '../../assets/img/theme/team-4-800x800.jpg';
 
-const AdminNavbar = ({ image, logout }) => {
+const AdminNavbar = ({ user, logout }) => {
 	return (
 		<Fragment>
 			<Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -31,10 +31,10 @@ const AdminNavbar = ({ image, logout }) => {
 							<DropdownToggle className="pr-0" nav>
 								<Media className="align-items-center">
 									<span className="avatar avatar-sm rounded-circle">
-										<img alt="..." src={image} />
+										<img alt="..." src={user.image} />
 									</span>
 									<Media className="ml-2 d-none d-lg-block">
-										<span className="mb-0 text-sm font-weight-bold" />
+										<span className="mb-0 text-sm font-weight-bold">{user.username}</span>
 									</Media>
 								</Media>
 							</DropdownToggle>
